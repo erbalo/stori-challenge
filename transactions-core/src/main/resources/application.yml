@@ -1,0 +1,23 @@
+
+# Server
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# Actuator
+management:
+  endpoints:
+    web:
+      base-path: /
+  info:
+    git:
+      mode: simple
+  endpoint:
+    health:
+      show-details: always
+
+aws:
+  region: us-east-1
+  dynamodb:
+    endpoint: http://localhost:8000
