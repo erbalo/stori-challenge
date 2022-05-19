@@ -27,5 +27,4 @@ public class TransactionConsumer {
         accountStatementService.create(request);
         log.info("********** Finishing account statement for transaction **********");
     }
-
 }

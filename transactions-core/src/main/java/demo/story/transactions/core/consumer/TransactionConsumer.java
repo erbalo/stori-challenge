@@ -31,7 +31,7 @@ public class TransactionConsumer {
             log.error(exception.getMessage());
         }
         log.info("********** Finishing pipeline transaction **********");
-        //throw new AmqpRejectAndDontRequeueException("some");
+
     }
 
     @RabbitListener(queues = NEW_TRANSACTION_DLQ_QUEUE)
