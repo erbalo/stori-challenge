@@ -1,10 +1,12 @@
 package demo.stori.account.statement.consumer;
 
 import demo.stori.account.statement.representation.TransactionRequest;
-import demo.stori.account.statement.services.TransactionService;
+import demo.stori.account.statement.services.AccountStatementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
+
+import java.text.ParseException;
 
 import static demo.stori.account.statement.constants.RabbitConstants.NEW_TRANSACTION_QUEUE;
 
@@ -12,15 +14,15 @@ import static demo.stori.account.statement.constants.RabbitConstants.NEW_TRANSAC
 @Component
 public class TransactionConsumer {
 
-    private final TransactionService transactionService;
+    private final AccountStatementService accountStatementService;
 
-    public TransactionConsumer(TransactionService transactionService) {
-        this.transactionService = transactionService;
+    public TransactionConsumer(AccountStatementService accountStatementService) {
+        this.accountStatementService = accountStatementService;
     }
 
     @RabbitListener(queues = NEW_TRANSACTION_QUEUE)
-    public void handleMessage(TransactionRequest request) {
-
+    public void handleMessage(TransactionRequest request) throws ParseException {
+        accountStatementService.create(request);
     }
 
 }
