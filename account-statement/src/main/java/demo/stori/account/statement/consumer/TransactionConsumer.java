@@ -22,7 +22,10 @@ public class TransactionConsumer {
 
     @RabbitListener(queues = NEW_TRANSACTION_QUEUE)
     public void handleMessage(TransactionRequest request) throws ParseException {
+        log.info("********** Receiving transaction request **********");
+        log.info("{}", request);
         accountStatementService.create(request);
+        log.info("********** Finishing account statement for transaction **********");
     }
 
 }

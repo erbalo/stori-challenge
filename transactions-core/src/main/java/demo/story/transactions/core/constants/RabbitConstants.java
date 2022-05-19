@@ -24,6 +24,7 @@ public final class RabbitConstants {
      * Names
      */
     public static final String NEW_TRANSACTION_QUEUE_NAME = "core.transaction.new";
+    public static final String NEW_TRANSACTION_ACCOUNT_STATEMENT_QUEUE_NAME = "account.statement.transaction.new";
 
     /**
      * Routing keys
@@ -34,6 +35,7 @@ public final class RabbitConstants {
      * Queues
      */
     public static final String NEW_TRANSACTION_QUEUE = SERVICE_COMPONENT_NAME + NEW_TRANSACTION_QUEUE_NAME;
+    public static final String NEW_TRANSACTION_ACCOUNT_STATEMENT_QUEUE = SERVICE_COMPONENT_NAME + NEW_TRANSACTION_ACCOUNT_STATEMENT_QUEUE_NAME;
 
     /**
      * Dead letters
