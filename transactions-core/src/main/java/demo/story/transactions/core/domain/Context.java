@@ -1,5 +1,6 @@
-package demo.story.transactions.core.representation;
+package demo.story.transactions.core.domain;
 
+import demo.story.transactions.core.representation.TransactionRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -7,19 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.Date;
-
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
 @ToString
-public class TransactionRepresentation {
+public class Context {
 
-    private Long id;
-    private String transaction;
-    private Long account;
-    private Date date;
+    private TransactionRequest request;
 
 }

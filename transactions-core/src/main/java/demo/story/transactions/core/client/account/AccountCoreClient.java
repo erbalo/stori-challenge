@@ -4,6 +4,6 @@ import java.math.BigDecimal;
 
 public interface AccountCoreClient {
 
-    public void updateBalance(Long accountId, BigDecimal amount);
+    void updateBalance(Long accountId, BigDecimal amount);
 
 }

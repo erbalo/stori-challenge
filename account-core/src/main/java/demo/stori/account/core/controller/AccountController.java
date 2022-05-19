@@ -16,7 +16,7 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    public AccountController(AccountService accountService){
+    public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
 

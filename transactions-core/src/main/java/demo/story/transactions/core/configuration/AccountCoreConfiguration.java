@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 
 @Configuration
 public class AccountCoreConfiguration {
@@ -20,18 +21,17 @@ public class AccountCoreConfiguration {
     }
 
     @Bean
-    public HttpComponentsClientHttpRequestFactory accountCoreClientHttpFactory(){
+    @ConfigurationProperties(prefix = "service.account-core.connection")
+    public HttpComponentsClientHttpRequestFactory accountCoreClientHttpFactory() {
         return new HttpComponentsClientHttpRequestFactory();
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "service.account-core.connection")
-    public RestTemplate accountCoreRestTemplate(RestTemplateBuilder builder, ClientHttpRequestFactory accountCoreClientHttpFactory){
-        return builder
-                .requestFactory(accountCoreClientHttpFactory.getClass())
-                .rootUri(accountCoreProperties.baseURL)
-                .errorHandler(new ClientErrorHandler())
-                .build();
+    public RestTemplate accountCoreRestTemplate(ClientHttpRequestFactory accountCoreClientHttpFactory) {
+        RestTemplate restTemplate = new RestTemplate(accountCoreClientHttpFactory);
+        restTemplate.setErrorHandler(new ClientErrorHandler());
+        restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(accountCoreProperties.getBaseURL()));
+        return restTemplate;
     }
 
 }
