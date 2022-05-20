@@ -1,6 +1,7 @@
 package demo.stori.transactions.reader.service;
 
 import demo.stori.transactions.reader.representation.TransactionRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -17,15 +18,15 @@ import java.util.List;
 import static demo.stori.transactions.reader.representation.TransactionOrigin.FILE;
 import static demo.stori.transactions.reader.util.TransactionUtil.stringToDate;
 
+@Slf4j
 @Service
 public class FileService {
 
     public List<TransactionRequest> processFile(String filePath) throws IOException, ParseException {
-        System.out.println("Read " + filePath);
+        log.info("Reading filepath [{}]", filePath);
         Path path = Paths.get(filePath);
 
         String checksum = DigestUtils.md5DigestAsHex(Files.readAllBytes(path));
-        System.out.println(checksum);
 
         List<TransactionRequest> requests = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {

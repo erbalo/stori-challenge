@@ -54,10 +54,9 @@ public class Menu {
                     List<TransactionRequest> requests = fileService.processFile(dir + "/" + file);
                     coreDispatcher.sendBulkTransactions(requests);
                 };
-            case 'A':
-            case 'a':
-            case 'R':
-            case 'r':
+            case 'E':
+            case 'e':
+
             case 'X':
             case 'x':
                 return () -> {
