@@ -1,12 +1,8 @@
 package demo.stori.account.statement.util;
 
 import java.math.BigDecimal;
-import java.text.DateFormatSymbols;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Optional;
 
 public final class TransactionUtil {
@@ -22,22 +18,26 @@ public final class TransactionUtil {
         return new BigDecimal(amount);
     }
 
-    public static Date extractDateAndResetDay(Date date) throws ParseException {
+    public static String extractDateAndResetDay(Date date) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-01");
-        String stringDate = df.format(date);
-        return df.parse(stringDate);
+        return df.format(date);
     }
 
-    public static Optional<String> getMonthFromDate(Date date) {
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
+    public static Optional<String> getMonthFromDate(String date) {
+        String[] dateParts = date.split("-");
 
-        int month = calendar.get(Calendar.MONTH);
+        if (dateParts.length > 3) {
+            return Optional.empty();
+        }
 
-        DateFormatSymbols dfs = new DateFormatSymbols();
-        String[] months = dfs.getMonths();
+        int month = Integer.parseInt(dateParts[1]);
 
-        if (month >= 0 && month <= 11) {
+        String[] months = {"NA", "January", "February",
+                "March", "April", "May", "June", "July",
+                "August", "September", "October", "November",
+                "December"};
+
+        if (month >= 0) {
             return Optional.of(months[month]);
         }
 

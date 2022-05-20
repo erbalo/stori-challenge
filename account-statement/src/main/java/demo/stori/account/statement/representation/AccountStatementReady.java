@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 @Builder(toBuilder = true)
 @NoArgsConstructor
@@ -21,6 +20,6 @@ public class AccountStatementReady {
     private Long accountId;
     private BigDecimal debit;
     private BigDecimal credit;
-    private Date date;
+    private String date;
 
 }

@@ -26,7 +26,7 @@ public class AccountStatementService {
         this.accountStatementRepository = accountStatementRepository;
     }
 
-    public void create(TransactionRequest request) throws ParseException {
+    public void create(TransactionRequest request) {
         BigDecimal amount = stringTransactionToDecimal(request.getTransaction());
         BigDecimal debit = BigDecimal.ZERO;
         BigDecimal credit = BigDecimal.ZERO;

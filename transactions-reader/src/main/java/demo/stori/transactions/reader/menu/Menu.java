@@ -1,6 +1,8 @@
 package demo.stori.transactions.reader.menu;
 
+import demo.stori.transactions.reader.domain.AccountNotificationDispatcher;
 import demo.stori.transactions.reader.domain.TransactionCoreDispatcher;
+import demo.stori.transactions.reader.representation.AccountStatementRequest;
 import demo.stori.transactions.reader.representation.TransactionRequest;
 import demo.stori.transactions.reader.service.FileService;
 import org.springframework.stereotype.Component;
@@ -15,17 +17,18 @@ public class Menu {
 
     private final FileService fileService;
     private final TransactionCoreDispatcher coreDispatcher;
+    private final AccountNotificationDispatcher accountNotificationDispatcher;
 
-    public Menu(FileService fileService, TransactionCoreDispatcher coreDispatcher) {
+    public Menu(FileService fileService, TransactionCoreDispatcher coreDispatcher, AccountNotificationDispatcher accountNotificationDispatcher) {
         this.fileService = fileService;
         this.coreDispatcher = coreDispatcher;
+        this.accountNotificationDispatcher = accountNotificationDispatcher;
     }
 
     public void displayOptions() {
         System.out.println("\n ----------------------------------------------------------------");
-        System.out.println("\t(T|t) Enter a transaction");
-        System.out.println("\t(A|a) Show current account (The violations are not included)");
-        System.out.println("\t(R|r) Reset");
+        System.out.println("\t(P|p) Read CSV from giving path");
+        System.out.println("\t(E|e) Request email for summary");
         System.out.println("\t(X|x) Exit");
         System.out.println(" ----------------------------------------------------------------\n");
     }
@@ -44,27 +47,45 @@ public class Menu {
 
     public MenuOperation perform(char choice) {
         switch (choice) {
-            case 'T':
-            case 't':
+            case 'P':
+            case 'p':
                 return () -> {
                     //System.out.print("[in] Enter the transaction $>> ");
                     //String json = input.nextLine();
                     String dir = System.getenv("MOUNT_DIRECTORY");
-                    String file = "15_2022_txns.csv";
+                    String file = "11_2025_txns.csv";
                     List<TransactionRequest> requests = fileService.processFile(dir + "/" + file);
                     coreDispatcher.sendBulkTransactions(requests);
                 };
             case 'E':
             case 'e':
+                return () -> {
+                    System.out.print("[in] Enter the email when you'll receive the information $>> ");
+                    String email = input.nextLine();
 
+                    System.out.print("[in] Enter the account from the statement that you want $>> ");
+                    String stringAccount = input.nextLine();
+
+                    System.out.print("[in] Enter the year from the statement that you want $>> ");
+                    String stringYear = input.nextLine();
+
+                    System.out.println("[out] Performing operation...");
+                    AccountStatementRequest request = AccountStatementRequest.builder()
+                            .toEmail(email)
+                            .year(Integer.parseInt(stringYear))
+                            .accountId(Long.parseLong(stringAccount))
+                            .build();
+
+                    accountNotificationDispatcher.emitStatementEmail(request);
+                };
             case 'X':
             case 'x':
                 return () -> {
-                    System.out.println("Exiting... thanks ;)");
+                    System.out.println("[out] Exiting... thanks ;)");
                     System.exit(0);
                 };
             default:
-                throw new UnsupportedOperationException("Type a valid option >:)");
+                throw new UnsupportedOperationException("[out] Type a valid option >:)");
         }
     }
 

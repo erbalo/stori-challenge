@@ -23,7 +23,7 @@ import static demo.stori.transactions.reader.util.TransactionUtil.stringToDate;
 public class FileService {
 
     public List<TransactionRequest> processFile(String filePath) throws IOException, ParseException {
-        log.info("Reading filepath [{}]", filePath);
+        System.out.printf("Reading filepath [%s] \n", filePath);
         Path path = Paths.get(filePath);
 
         String checksum = DigestUtils.md5DigestAsHex(Files.readAllBytes(path));
@@ -59,6 +59,7 @@ public class FileService {
             }
         }
 
+        System.out.println(" \\m/. File was read successfully!!!");
         return requests;
     }
 
