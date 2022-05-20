@@ -1,8 +1,11 @@
 package demo.stori.transactions.reader.menu;
 
+import demo.stori.transactions.reader.domain.TransactionCoreDispatcher;
+import demo.stori.transactions.reader.representation.TransactionRequest;
 import demo.stori.transactions.reader.service.FileService;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Component
@@ -11,9 +14,11 @@ public class Menu {
     private static final Scanner input = new Scanner(System.in);
 
     private final FileService fileService;
+    private final TransactionCoreDispatcher coreDispatcher;
 
-    public Menu(FileService fileService) {
+    public Menu(FileService fileService, TransactionCoreDispatcher coreDispatcher) {
         this.fileService = fileService;
+        this.coreDispatcher = coreDispatcher;
     }
 
     public void displayOptions() {
@@ -46,7 +51,8 @@ public class Menu {
                     //String json = input.nextLine();
                     String dir = System.getenv("MOUNT_DIRECTORY");
                     String file = "15_2022_txns.csv";
-                    fileService.processFile(dir + "/" + file);
+                    List<TransactionRequest> requests = fileService.processFile(dir + "/" + file);
+                    coreDispatcher.sendBulkTransactions(requests);
                 };
             case 'A':
             case 'a':

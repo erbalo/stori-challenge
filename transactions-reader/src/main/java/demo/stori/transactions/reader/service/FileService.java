@@ -1,20 +1,33 @@
 package demo.stori.transactions.reader.service;
 
+import demo.stori.transactions.reader.representation.TransactionRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static demo.stori.transactions.reader.representation.TransactionOrigin.FILE;
+import static demo.stori.transactions.reader.util.TransactionUtil.stringToDate;
 
 @Service
 public class FileService {
 
-    public void processFile(String filePath) throws IOException {
+    public List<TransactionRequest> processFile(String filePath) throws IOException, ParseException {
         System.out.println("Read " + filePath);
+        Path path = Paths.get(filePath);
 
-        List<List<String>> records = new ArrayList<>();
+        String checksum = DigestUtils.md5DigestAsHex(Files.readAllBytes(path));
+        System.out.println(checksum);
+
+        List<TransactionRequest> requests = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             int index = 0;
@@ -31,16 +44,21 @@ public class FileService {
                     throw new RuntimeException("Error getting the structure");
                 }
 
+                TransactionRequest request = TransactionRequest.builder()
+                        .id(Long.valueOf(values[0])) // first position means transaction id
+                        .transaction(values[1]) // second position means the transaction
+                        .account(Long.valueOf(values[2])) // first position means account id
+                        .date(stringToDate(values[3])) // first position means account id
+                        .reference(checksum)
+                        .origin(FILE)
+                        .build();
 
-
-                System.out.print(values[0] + " - ");
-                System.out.print(values[1] + " - ");
-                System.out.print(values[2] + " - ");
-                System.out.print(values[3] + "\n");
-                //records.add(Arrays.asList(values));
+                requests.add(request);
                 index++;
             }
         }
+
+        return requests;
     }
 
 }
