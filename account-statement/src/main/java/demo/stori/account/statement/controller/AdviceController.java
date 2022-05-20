@@ -1,11 +1,11 @@
-package demo.stori.account.core.controller;
+package demo.stori.account.statement.controller;
 
 import com.amazonaws.services.dynamodbv2.model.AmazonDynamoDBException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import demo.stori.account.core.domain.ErrorDetails;
-import demo.stori.account.core.exception.ResourceNotFoundException;
-import demo.stori.account.core.exception.ResourceNotProcessableException;
+import demo.stori.account.statement.domain.ErrorDetails;
+import demo.stori.account.statement.exception.ResourceNotFoundException;
+import demo.stori.account.statement.exception.ResourceNotProcessableException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;

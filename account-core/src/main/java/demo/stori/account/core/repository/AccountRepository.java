@@ -2,7 +2,7 @@ package demo.stori.account.core.repository;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import demo.stori.account.core.entity.Account;
-import demo.stori.account.core.representation.request.BalanceRequest;
+import demo.stori.account.core.representation.BalanceRequest;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -15,6 +15,11 @@ public class AccountRepository {
 
     public AccountRepository(DynamoDBMapper dynamoDBMapper) {
         this.dynamoDBMapper = dynamoDBMapper;
+    }
+
+    public Optional<Account> getBy(Long accountId) {
+        Account loaded = dynamoDBMapper.load(Account.class, accountId);
+        return Optional.ofNullable(loaded);
     }
 
     public void updateBalance(Long accountId, BalanceRequest request) {

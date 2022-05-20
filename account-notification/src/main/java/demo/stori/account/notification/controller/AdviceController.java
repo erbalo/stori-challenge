@@ -1,11 +1,10 @@
-package demo.stori.account.core.controller;
+package demo.stori.account.notification.controller;
 
-import com.amazonaws.services.dynamodbv2.model.AmazonDynamoDBException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import demo.stori.account.core.domain.ErrorDetails;
-import demo.stori.account.core.exception.ResourceNotFoundException;
-import demo.stori.account.core.exception.ResourceNotProcessableException;
+import demo.stori.account.notification.domain.ErrorDetails;
+import demo.stori.account.notification.exception.ResourceNotFoundException;
+import demo.stori.account.notification.exception.ResourceNotProcessableException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -25,7 +24,6 @@ import static java.util.Optional.ofNullable;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 
 @Slf4j
 @RestControllerAdvice
@@ -95,17 +93,6 @@ public class AdviceController {
         return ErrorDetails.builder()
                 .path(request.getRequestURI())
                 .message(buildMessage(exception, CONFLICT))
-                .build();
-    }
-
-    @ResponseStatus(SERVICE_UNAVAILABLE)
-    @ExceptionHandler(AmazonDynamoDBException.class)
-    public ErrorDetails handleResourceNotProcessableException(AmazonDynamoDBException exception, HttpServletRequest request, HttpServletResponse response) {
-        log.error("Details", exception);
-
-        return ErrorDetails.builder()
-                .path(request.getRequestURI())
-                .message(SERVICE_UNAVAILABLE.getReasonPhrase())
                 .build();
     }
 

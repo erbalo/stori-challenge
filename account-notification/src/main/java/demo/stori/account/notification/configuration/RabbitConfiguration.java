@@ -1,8 +1,9 @@
-package demo.stori.transactions.reader.configuration;
+package demo.stori.account.notification.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import demo.stori.transactions.reader.util.JsonUtil;
-import org.springframework.amqp.core.DirectExchange;
+import demo.stori.account.notification.util.JsonUtil;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListenerConfigurer;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
@@ -17,7 +18,12 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
 
-import static demo.stori.transactions.reader.constants.RabbitConstants.STORI_EXCHANGE;
+import static demo.stori.account.notification.constants.RabbitConstants.ACCOUNT_STATEMENT_DEAD_LETTER_ROUTING_KEY;
+import static demo.stori.account.notification.constants.RabbitConstants.ACCOUNT_STATEMENT_QUEUE;
+import static demo.stori.account.notification.constants.RabbitConstants.ATTRIBUTE_DEAD_LETTER_EXCHANGE;
+import static demo.stori.account.notification.constants.RabbitConstants.ATTRIBUTE_DEAD_LETTER_ROUTING_KEY;
+import static demo.stori.account.notification.constants.RabbitConstants.ATTRIBUTE_MESSAGE_TTL;
+import static demo.stori.account.notification.constants.RabbitConstants.STORI_EXCHANGE;
 
 @Primary
 @EnableRabbit
@@ -67,9 +73,18 @@ public class RabbitConfiguration implements RabbitListenerConfigurer {
         registrar.setMessageHandlerMethodFactory(messageHandlerMethodFactory());
     }
 
+    private Queue createQueue(String queueName, String deadLetterRoutingKey, Integer messageTtlQueue) {
+        return QueueBuilder
+                .durable(queueName)
+                .withArgument(ATTRIBUTE_DEAD_LETTER_EXCHANGE, STORI_EXCHANGE) // The default exchange
+                .withArgument(ATTRIBUTE_DEAD_LETTER_ROUTING_KEY, deadLetterRoutingKey) // Route to the queue when the TTL occurs
+                .withArgument(ATTRIBUTE_MESSAGE_TTL, messageTtlQueue)
+                .build();
+    }
+
     @Bean
-    public DirectExchange deadLetterExchange() {
-        return new DirectExchange(STORI_EXCHANGE);
+    public Queue newTransactionQueue() {
+        return createQueue(ACCOUNT_STATEMENT_QUEUE, ACCOUNT_STATEMENT_DEAD_LETTER_ROUTING_KEY, 90000);
     }
 
 }

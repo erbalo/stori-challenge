@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Template for HTML email with inline image</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <style>
+            .container {
+                width: 700px;
+                box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+                margin: 0 auto;
+            }
+
+            .container-header {
+                background-color: #00C7B1;
+                text-align: center;
+                padding: 15px;
+            }
+
+            .container-header .logo {
+                margin-bottom: 1em;
+            }
+
+            .logo img {
+                width: 165px;
+                height: 50px;
+                object-fit: cover;
+                object-position: top;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-image: url('https://dd7tel2830j4w.cloudfront.net/f1650945259443x327380622913351100/Stori%20Logo.svg');
+            }
+
+            .container-header p {
+                font-family: 'Raleway', sans-serif;
+                font-size: 37px;
+                color: #ffffff;
+                font-weight: bold;
+                letter-spacing: 8px;
+                margin: 0;
+            }
+
+            .container-header p > label {
+                font-family: 'Raleway', sans-serif;
+                font-size: 37px;
+                color: #ffffff;;
+                font-weight: 300;
+                letter-spacing: 8px;
+            }
+
+            .container-body {
+                font-family: 'Raleway', sans-serif;
+                font-size: 25px;
+                font-weight: bold;
+                color: #d2469e;
+                text-align: center;
+            }
+
+            .balance {
+                margin: 1.5em 0;
+            }
+
+            .month-grid {
+                padding-bottom: 1.5em;
+            }
+
+            .month-summary {
+                width: 25%;
+                padding: 2%;
+                display: inline-block;
+            }
+
+            .month-summary label.title {
+                font-family: 'Raleway', Arial, sans-serif;
+                font-size: 20px;
+                color: #2b3c4d;
+                line-height: 24px;
+                font-weight: bold;
+            }
+
+            .month-summary label {
+                font-family: 'Lato', sans-serif;
+                font-size: 12px;
+                color: #757575;
+                line-height: 24px;
+                font-weight: 300;
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="container-header">
+                <div class="logo">
+                    <img src="images/logo.png" data-th-src="|cid:storiLogo|" height="80" />
+                </div>
+                <div>
+                    <p>Account <span>Summary </span> <span th:text="${year}"></span></p>
+                </div>
+            </div>
+            <div class="container-body">
+                <div class="balance">
+                    <span th:text="${'Current balance $ ' + balance}" />
+                </div>
+                <div class="month-grid">
+                    <div th:each="statement: ${statements}" class="month-summary">
+                        <label class="title" th:text="${statement.month}" />
+                        <label th:text="${'Transactions # ' + statement.transactions}" />
+                        <label th:text="${'Avg. Debit $ ' + statement.debit}" />
+                        <label th:text="${'Avg. Credit $ ' + statement.credit}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

@@ -1,4 +1,4 @@
-package demo.stori.transactions.reader.configuration;
+package demo.stori.account.notification.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -24,7 +24,7 @@ public class ThreadPoolConfiguration implements AsyncConfigurer {
         executor.setCorePoolSize(4);
         executor.setMaxPoolSize(200);
         executor.setQueueCapacity(1000);
-        executor.setThreadNamePrefix("tx-reader-thread-pool");
+        executor.setThreadNamePrefix("account-ntf-thread-pool");
 
         return executor;
     }

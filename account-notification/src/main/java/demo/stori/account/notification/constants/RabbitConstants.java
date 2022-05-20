@@ -1,4 +1,4 @@
-package demo.stori.transactions.reader.constants;
+package demo.stori.account.notification.constants;
 
 public final class RabbitConstants {
 
@@ -18,22 +18,21 @@ public final class RabbitConstants {
     public static final String SERVICE_COMPONENT_NAME = "demo.stori.";
     public static final String STORI_EXCHANGE = "stori.direct";
     public static final String EXPIRED = ".expired";
+    public static final String DLQ = ".dlq";
 
     /**
      * Names
      */
-    public static final String NEW_TRANSACTION_CORE_QUEUE_NAME = "core.transaction.new";
     public static final String ACCOUNT_STATEMENT_QUEUE_NAME = "notification.account.statement";
 
     /**
      * Routing keys
      */
-    public static final String NEW_TRANSACTION_DEAD_LETTER_ROUTING_KEY = SERVICE_COMPONENT_NAME + NEW_TRANSACTION_CORE_QUEUE_NAME + EXPIRED;
+    public static final String ACCOUNT_STATEMENT_DEAD_LETTER_ROUTING_KEY = SERVICE_COMPONENT_NAME + ACCOUNT_STATEMENT_QUEUE_NAME + EXPIRED;
 
     /**
      * Queues
      */
-    public static final String NEW_TRANSACTION_CORE_QUEUE = SERVICE_COMPONENT_NAME + NEW_TRANSACTION_CORE_QUEUE_NAME;
     public static final String ACCOUNT_STATEMENT_QUEUE = SERVICE_COMPONENT_NAME + ACCOUNT_STATEMENT_QUEUE_NAME;
 
 }

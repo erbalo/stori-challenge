@@ -1,4 +1,4 @@
-package demo.stori.account.core.representation.request;
+package demo.stori.account.core.representation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,14 +9,15 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
 @ToString
-public class BalanceRequest {
+public class AccountRepresentation {
 
-    private BigDecimal amount;
+    private Long id;
+    private BigDecimal balance;
 
 }
