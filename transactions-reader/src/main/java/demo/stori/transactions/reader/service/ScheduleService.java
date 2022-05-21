@@ -23,7 +23,7 @@ public class ScheduleService {
     @Async
     public void scheduleTask(AccountStatementRequest request) {
         Instant now = new Date().toInstant();
-        Instant secs = now.plusSeconds(30);
+        Instant secs = now.plusSeconds(120);
         taskScheduler.schedule(() -> accountNotificationDispatcher.emitStatementEmail(request), secs);
     }
 

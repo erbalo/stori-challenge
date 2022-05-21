@@ -26,6 +26,7 @@ public class TransactionConsumer {
     public void handleMessage(TransactionRequest request) {
         try {
             log.info("********** Starting new pipeline transaction **********");
+            log.info("{}", request);
             transactionService.create(request);
         } catch (RepeatedTransactionException | UpdateBalanceException exception) {
             log.error(exception.getMessage());

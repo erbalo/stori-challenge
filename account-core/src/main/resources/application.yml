@@ -16,6 +16,10 @@ management:
     health:
       show-details: always
 
+spring:
+  main:
+    banner-mode: "off"
+
 aws:
   region: us-east-1
   dynamodb:

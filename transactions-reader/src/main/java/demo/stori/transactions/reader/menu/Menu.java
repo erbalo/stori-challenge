@@ -50,17 +50,19 @@ public class Menu {
             case 'P':
             case 'p':
                 return () -> {
-                    //System.out.print("[in] Enter the transaction $>> ");
-                    //String json = input.nextLine();
-                    String dir = System.getenv("MOUNT_DIRECTORY");
-                    String file = "11_2025_txns.csv";
-                    List<TransactionRequest> requests = fileService.processFile(dir + "/" + file);
-                    coreDispatcher.sendBulkTransactions(requests);
+                    System.out.print("[in] Enter the email when you'll receive the information $>> ");
+                    String email = input.nextLine();
+                    //String dir = System.getenv("MOUNT_DIRECTORY");
+                    //String file = "11_2025_txns.csv";
+                    System.out.print("[in] Enter the file path where we're going to receive the transactions $>> ");
+                    String filePath = input.nextLine();
+                    List<TransactionRequest> requests = fileService.processFile(filePath);
+                    coreDispatcher.sendBulkTransactions(email, requests);
                 };
             case 'E':
             case 'e':
                 return () -> {
-                    System.out.print("[in] Enter the email when you'll receive the information $>> ");
+                    System.out.print("[in] Enter the email where you'll receive the information $>> ");
                     String email = input.nextLine();
 
                     System.out.print("[in] Enter the account from the statement that you want $>> ");

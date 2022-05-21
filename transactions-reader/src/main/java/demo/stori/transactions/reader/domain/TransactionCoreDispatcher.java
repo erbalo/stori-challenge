@@ -20,10 +20,10 @@ public class TransactionCoreDispatcher {
         this.transactionService = transactionService;
     }
 
-    public void sendBulkTransactions(List<TransactionRequest> requests) {
+    public void sendBulkTransactions(String email, List<TransactionRequest> requests) {
         System.out.println("Sending transactions in batch, you can continue executing commands :D");
         requests.forEach(this::sendTransaction);
-        transactionService.prepareScheduleEmail("ebarreral.isc@gmail.com", requests);
+        transactionService.prepareScheduleEmail(email, requests);
     }
 
     public void sendTransaction(TransactionRequest request) {

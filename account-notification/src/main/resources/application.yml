@@ -18,6 +18,8 @@ management:
 
 # Spring
 spring:
+  main:
+    banner-mode: "off"
   rabbitmq:
     host: localhost
     port: 5672
