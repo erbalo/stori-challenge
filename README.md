@@ -1,13 +1,13 @@
 # Stori challennge
 
-## A little beginning ####
+## A little beginning ##
 
 >If at first you don't succeed, call it version 1.0 __~ Erick Barrera__
 
-### Author ####
+### Author ###
 * Erick Barrera - **ebarreral.isc@gmail.com**
 
-## Technology stack ###
+## Technology stack ##
 
 - Java 11
 - Maven
@@ -16,17 +16,17 @@
 - DynamoDB
 - RabbitMQ
 
-## Requirements
+## Requirements ##
 
 - Operating System based on UNIX
 - Docker
 - AWS CLI
 
-## Proposal architecture
+## Proposal architecture ##
 
 ![Architecture](stori-challenge.jpg)
 
-### How to run the application? ###
+## How to run the application? ##
 
 To run the entire system correctly, you will need to use __two terminals__.
 
@@ -43,7 +43,7 @@ In the second terminal you must follow the following instructions:
 
 >__NOTE:__ It's important that you read the instructions for the second terminal (interactive menu), as you must enter the correct data for its correct use.
 
-### Please read this section
+### Please read this section ###
 
 In the second terminal ("make app") you have 3 options:
 
@@ -76,8 +76,15 @@ The above is managed by the __*Makefile*__ and by the clause that has `$(shell p
 You can change the first parameter, but not the second (__file-repository__) since it was created from the base of the image
 
 2. Send email
+
+The first step in this process is to request the email where the account statement will be sent, the second parameter is the account number and the third parameter is the year of the account statement. Note that these parameters have no validations ("I know! It can be frustrating, but I spent the time developing an architecture-based system")
+
 3. End application
 
-## Considerations
+This will simply kill the process of the second terminal ("make app")
+
+
+## Considerations ##
 
 You can terminate and execute the `make app` command as many times as you like, but if the first terminal (`make services`) is destroyed or terminates its process with CTRL+C you will have to start the process again.
+

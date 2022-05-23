@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 aws dynamodb create-table \
     --region=us-east-1 \
     --endpoint-url http://localhost:8000 \

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 aws dynamodb delete-table \
     --table-name accounts \
     --endpoint-url http://localhost:8000 \
