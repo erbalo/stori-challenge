@@ -14,10 +14,11 @@
 * [Proposal architecture](#proposal-architecture)
 * [How to run the application](#how-to-run-the-application)
 	- [Please read this section](#please-read-this-section)
-	- [Get Sub-items of the Item](#get-sub-items-of-the-item)
-	- [Magic Where Methods](#magic-where-methods)
+* [File format](#file-format)
+    - [Assumptions](#assumptions)
 * [Considerations](#considerations)
     - [Make clean](#make-clean)
+* [Improvements](#improvements)
 
 ## Technology stack ##
 
@@ -63,7 +64,7 @@ In the second terminal ("make app") you have 3 options:
 
 In this process, as a first step, you will be asked for the email where the transaction reading report will be sent.
 
-The second step will be to include the path where the file is located, being dockerized and running in a container, the image was created to create an anchor volume on the root where this project is located and you must place the name of the internal volume + the file name.
+The second step will be to include the path where the file is located, being dockerized and running in a container, the image was created to create an anchor volume on the root where this project is located and __you must type the name of the internal volume + the file name__.
 
 Ex.
 
@@ -87,14 +88,58 @@ The above is managed by the __*Makefile*__ and by the clause that has `$(shell p
 
 You can change the first parameter, but not the second (__file-repository__) since it was created from the base of the image
 
+__If the file has been executed correctly you will see the following message__
+
+```shell
+Reading filepath [/file-repository/1.csv]
+ \m/. File was read successfully!!!
+Sending transactions in batch, you can continue executing commands :D
+```
+
+> __NOTE:__ the mail will be scheduled to be sent in 2 minutes once the execution of the file reading is finished, if it does not arrive in the first terminal the error will appear, possibly it is a typo, or failing that, some connection, or a process that has died unexpectedly (hopefully it does not happen) in any of the cases feel comfortable requesting help by email and I will gladly help.
+
 2. Send email
 
 The first step in this process is to request the email where the account statement will be sent, the second parameter is the account number and the third parameter is the year of the account statement. Note that these parameters have no validations ("I know! It can be frustrating, but I spent the time developing an architecture-based system")
+
+If the requested information (account and year) exists, the mail will be queued and an attempt will be made to send it immediately, if no mail arrives, the error log can be seen in the first terminal, possibly the year does not contain information, or otherwise, the account does not exist.
 
 3. End application
 
 This will simply kill the process of the second terminal ("make app")
 
+## File format ##
+
+The file format must contain the following structure:
+
+1. the first row must be the header, in the following order: `id,transaction,account,date`
+2. the following rows must have the information in the same order
+
+Ex.
+
+```csv
+id,transaction,account,date
+201,+1,19,2027-01-18T15:33:12.421Z
+202,+2,19,2027-02-18T15:33:12.421Z
+203,+3,19,2027-03-11T15:33:12.421Z
+204,4,19,2027-04-18T15:33:12.421Z
+205,5,19,2027-05-18T15:33:12.421Z
+206,6,19,2027-06-19T15:33:12.421Z
+207,+7,19,2027-07-18T15:33:12.421Z
+208,+8,19,2027-08-18T15:33:12.421Z
+209,+9,19,2027-09-18T15:33:12.421Z
+210,+10,19,2027-10-18T15:33:12.421Z
+211,+11,19,2027-11-18T15:33:12.421Z
+212,+12,19,2027-12-18T15:33:12.421Z
+```
+
+### Assumptions ###
+
+- The account must be the same,
+- The id must be numeric without decimals
+- The date must have the standard format ([ISO 8601](https://www.w3.org/TR/NOTE-datetime)) with time zone yyyy-MM-dd'T'HH:mm:ss'Z'
+- The data must be separated by commas and without single or double quotes
+- The date has no restriction, as long as the account is the same the system will detect the years/months of each transaction and will group the account statements and these will be sent after two minutes
 
 ## Considerations ##
 
@@ -103,3 +148,21 @@ You can terminate and execute the `make app` command as many times as you like, 
 ### Make clean ###
 
 It will only work in the second terminal ("make app") since it needs the first terminal to keep running due to the fact that dynamo is managed by *"docker-compose"* and this command will delete all created resources, only if they've executed the previous steps correctly in any other case will generate an error.
+
+## Improvements ##
+
+It can be detected that the system has many improvements in terms of validations, I know it seems easy, but personally, I focus this challenge more on architectural and distributed design. Once uploaded I will add more validations.
+
+Here I will leave a list of what I consider to be missing or that has areas for improvement:
+
+- Add common/basic validations
+- Add unit testing
+- Add integration testing
+- Add failover handling
+- Add cache
+- Optimize search with elastic
+- Optimize event bus with event bridge
+- Change SMTP server to CMS or CRM
+- Mount on cloud
+- Optimize communication to RPC instead of REST
+- Add monitoring

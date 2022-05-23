@@ -46,10 +46,10 @@ public class FileService {
                 }
 
                 TransactionRequest request = TransactionRequest.builder()
-                        .id(Long.valueOf(values[0])) // first position means transaction id
-                        .transaction(values[1]) // second position means the transaction
-                        .account(Long.valueOf(values[2])) // first position means account id
-                        .date(stringToDate(values[3])) // first position means account id
+                        .id(Long.valueOf(values[0].trim())) // first position means transaction id
+                        .transaction(values[1].trim()) // second position means the transaction
+                        .account(Long.valueOf(values[2].trim())) // first position means account id
+                        .date(stringToDate(values[3].trim())) // first position means account id
                         .reference(checksum)
                         .origin(FILE)
                         .build();
