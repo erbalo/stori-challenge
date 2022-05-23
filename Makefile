@@ -20,5 +20,6 @@ app:
 
 clean:
 	docker container prune --filter label=transactions-reader -f
+	docker rmi transactions-reader
 	./scripts/wait-for.sh localhost:8000 -t 60 -- ./delete-tables.sh
 	docker-compose down --rmi all
