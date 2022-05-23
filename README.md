@@ -99,7 +99,7 @@ Reading filepath [/file-repository/1.csv]
 Sending transactions in batch, you can continue executing commands :D
 ```
 
-> __NOTE:__ the mail will be scheduled to be sent in 2 minutes once the execution of the file reading is finished, if it does not arrive in the first terminal the error will appear, possibly it is a typo, or failing that, some connection, or a process that has died unexpectedly (hopefully it does not happen) in any of the cases feel comfortable requesting help by email and I will gladly help.
+> __NOTE:__ the mail will be scheduled to be sent in __*2 MINUTES*__ once the execution of the file reading is finished, if it does not arrive in the first terminal the error will appear, possibly it is a typo, or failing that, some connection, or a process that has died unexpectedly (hopefully it does not happen) in any of the cases feel comfortable requesting help by email and I will gladly help.
 
 2. Send email
 
