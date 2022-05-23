@@ -181,7 +181,7 @@ Here I will leave a list of what I consider to be missing or that has areas for 
 
 I'm getting this error `docker: Error response from daemon: Conflict. The container name "/transactions-reader" is already in use by container`, how can I solve it?
 
-R: To solve this, you need to execute the following commands
+*R: To solve this, you need to execute the following commands*
 
 ```shell
 make force-destroy-app
@@ -191,7 +191,7 @@ make app
 
 I'm not getting the email when I chose the path option, how can I solve it?
 
-R: If the first terminal, doesn't show you what's the error, you need to validate if you didn't close the second terminal ("make app"), the transactions-reader module creates a scheduler to send the email after two minutes when the file was processed successfully and if you close or kill that process the email will not be scheduled, in that case, you need to run the `make app` command again but now choose the second option.
+*R: If the first terminal, doesn't show you what's the error, you need to validate if you didn't close the second terminal ("make app"), the transactions-reader module creates a scheduler to send the email after two minutes when the file was processed successfully and if you close or kill that process the email will not be scheduled, in that case, you need to run the `make app` command again but now choose the second option.*
 
 ---
 
@@ -212,7 +212,7 @@ make: *** [clean] Error 255
 
 how can I solve it?
 
-R: Maybe you closed the terminal's service ("make services"), since dynamo service was orchestrated with the docker-compose file, you need to delete manually with:
+*R: Maybe you closed the terminal's service ("make services"), since dynamo service was orchestrated with the docker-compose file, you need to delete manually with:*
 
 ```shell
 make force-destroy
@@ -222,3 +222,25 @@ And execute the same steps from the section [How to run the application](#how-to
 
 ---
 
+I'm getting this message:
+
+```txt
+./scripts/wait-for.sh localhost:8000 -t 60 -- ./init-tables.sh
+wait-for.sh: waiting 60 seconds for localhost:8000
+wait-for.sh: localhost:8000 is available after 0 seconds
+
+An error occurred (ResourceInUseException) when calling the CreateTable operation: Cannot create preexisting table
+
+An error occurred (ResourceInUseException) when calling the CreateTable operation: Cannot create preexisting table
+
+An error occurred (ResourceInUseException) when calling the CreateTable operation: Cannot create preexisting table
+make: *** [tables] Error 254
+```
+
+how can I solve it?
+
+*R: You already have the tables created, you can execute directly the app `make app`* 
+
+---
+
+😵 Some doubts or some issues? Please contact me to `ebarreral.isc@gmail.com`
