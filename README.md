@@ -58,7 +58,7 @@ In the second terminal you must follow the following instructions:
 
 ☝🏽 [Return to table of contents](#table-of-contents)
 
-### Please read this section ###
+### 👉🏽 👉🏽 👉🏽 👉🏽 👉🏽 👉🏽 👉🏽 Please read this section 👈🏽 👈🏽 👈🏽 👈🏽 👈🏽 👈🏽 👈🏽 ###
 
 In the second terminal ("make app") you have 3 options:
 
