@@ -19,6 +19,7 @@
 * [Considerations](#considerations)
     - [Make clean](#make-clean)
 * [Improvements](#improvements)
+* [FAQ](#faq)
 
 ## Technology stack ##
 
@@ -175,3 +176,49 @@ Here I will leave a list of what I consider to be missing or that has areas for 
 - Add monitoring
 
 ☝🏽 [Return to table of contents](#table-of-contents)
+
+## FAQ ##
+
+I'm getting this error `docker: Error response from daemon: Conflict. The container name "/transactions-reader" is already in use by container`, how can I solve it?
+
+R: To solve this, you need to execute the following commands
+
+```shell
+make force-destroy-app
+make app
+```
+---
+
+I'm not getting the email when I chose the path option, how can I solve it?
+
+R: If the first terminal, doesn't show you what's the error, you need to validate if you didn't close the second terminal ("make app"), the transactions-reader module creates a scheduler to send the email after two minutes when the file was processed successfully and if you close or kill that process the email will not be scheduled, in that case, you need to run the `make app` command again but now choose the second option.
+
+---
+
+I'm getting this message:
+
+```txt
+./scripts/wait-for.sh localhost:8000 -t 60 -- ./delete-tables.sh
+wait-for.sh: waiting 60 seconds for localhost:8000
+wait-for.sh: timeout occurred after waiting 60 seconds for localhost:8000
+
+Could not connect to the endpoint URL: "http://localhost:8000/"
+
+Could not connect to the endpoint URL: "http://localhost:8000/"
+
+Could not connect to the endpoint URL: "http://localhost:8000/"
+make: *** [clean] Error 255
+```
+
+how can I solve it?
+
+R: Maybe you closed the terminal's service ("make services"), since dynamo service was orchestrated with the docker-compose file, you need to delete manually with:
+
+```shell
+make force-destroy
+```
+
+And execute the same steps from the section [How to run the application](#how-to-run-the-application)
+
+---
+

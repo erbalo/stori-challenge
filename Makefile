@@ -19,7 +19,13 @@ app:
 		-v $(shell pwd)/tmp/transactions:/file-repository transactions-reader
 
 clean:
+	./scripts/wait-for.sh localhost:8000 -t 60 -- ./delete-tables.sh
+	$(MAKE) force-destroy
+	$(MAKE) force-destroy-app
+
+force-destroy:
+	docker-compose down --rmi all
+
+force-destroy-app:
 	docker container prune --filter label=transactions-reader -f
 	docker rmi transactions-reader
-	./scripts/wait-for.sh localhost:8000 -t 60 -- ./delete-tables.sh
-	docker-compose down --rmi all
