@@ -7,6 +7,18 @@
 ### Author ###
 * Erick Barrera - **ebarreral.isc@gmail.com**
 
+## Table of contents
+
+* [Technology stack](#technology-stack)
+* [Requirements](#requirements)
+* [Proposal architecture](#proposal-architecture)
+* [How to run the application](#how-to-run-the-application)
+	- [Please read this section](#please-read-this-section)
+	- [Get Sub-items of the Item](#get-sub-items-of-the-item)
+	- [Magic Where Methods](#magic-where-methods)
+* [Considerations](#considerations)
+    - [Make clean](#make-clean)
+
 ## Technology stack ##
 
 - Java 11
@@ -26,7 +38,7 @@
 
 ![Architecture](stori-challenge.jpg)
 
-## How to run the application? ##
+## How to run the application ##
 
 To run the entire system correctly, you will need to use __two terminals__.
 
@@ -88,3 +100,6 @@ This will simply kill the process of the second terminal ("make app")
 
 You can terminate and execute the `make app` command as many times as you like, but if the first terminal (`make services`) is destroyed or terminates its process with CTRL+C you will have to start the process again.
 
+### Make clean ###
+
+It will only work in the second terminal ("make app") since it needs the first terminal to keep running due to the fact that dynamo is managed by *"docker-compose"* and this command will delete all created resources, only if they've executed the previous steps correctly in any other case will generate an error.
