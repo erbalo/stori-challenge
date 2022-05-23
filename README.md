@@ -57,6 +57,8 @@ In the second terminal you must follow the following instructions:
 
 >__NOTE:__ It's important that you read the instructions for the second terminal (interactive menu), as you must enter the correct data for its correct use.
 
+[![Video](http://img.youtube.com/vi/IoscAAOoy5s/0.jpg)](http://www.youtube.com/watch?v=IoscAAOoy5s "Video orchestration SCEBL")
+
 ☝🏽 [Return to table of contents](#table-of-contents)
 
 ### Please read this section ###
