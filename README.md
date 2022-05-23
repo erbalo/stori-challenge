@@ -13,7 +13,7 @@
 * [Requirements](#requirements)
 * [Proposal architecture](#proposal-architecture)
 * [How to run the application](#how-to-run-the-application)
-	- [Please read this section](#please-read-this-section)
+	- [Please read this section](#👉🏽-👉🏽-👉🏽-👉🏽-👉🏽-👉🏽-👉🏽-please-read-this-section-👈🏽-👈🏽-👈🏽-👈🏽-👈🏽-👈🏽-👈🏽)
 * [File format](#file-format)
     - [Assumptions](#assumptions)
 * [Considerations](#considerations)
