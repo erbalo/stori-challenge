@@ -14,6 +14,7 @@
 * [Proposal architecture](#proposal-architecture)
 * [How to run the application](#how-to-run-the-application)
 	- [Please read this section](#please-read-this-section)
+    - [Demo video](#demo-video)
 * [File format](#file-format)
     - [Assumptions](#assumptions)
 * [Considerations](#considerations)
@@ -56,6 +57,10 @@ In the second terminal you must follow the following instructions:
 2. run `make app` (it will be the initial application of the system, where the system will do the actions that the user enters)
 
 >__NOTE:__ It's important that you read the instructions for the second terminal (interactive menu), as you must enter the correct data for its correct use.
+
+### Demo video ###
+
+👇🏽 👇🏽 👇🏽 👇🏽 👇🏽 Clic on this image to see the video 🤘🏽 👇🏽 👇🏽 👇🏽 👇🏽 👇🏽 
 
 [![Video](http://img.youtube.com/vi/IoscAAOoy5s/0.jpg)](http://www.youtube.com/watch?v=IoscAAOoy5s "Video orchestration SCEBL")
 
