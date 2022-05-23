@@ -17,4 +17,5 @@ app:
 		-e SPRING_RABBITMQ_HOST=stori-rabbitmq -v $(shell pwd)/tmp/transactions:/file-repository transactions-reader
 
 clean:
+	./scripts/wait-for.sh localhost:8000 -t 60 -- ./delete-tables.sh
 	docker-compose down -v
