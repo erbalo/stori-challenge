@@ -56,6 +56,8 @@ In the second terminal you must follow the following instructions:
 
 >__NOTE:__ It's important that you read the instructions for the second terminal (interactive menu), as you must enter the correct data for its correct use.
 
+☝🏽 [Return to table of contents](#table-of-contents)
+
 ### Please read this section ###
 
 In the second terminal ("make app") you have 3 options:
@@ -108,6 +110,8 @@ If the requested information (account and year) exists, the mail will be queued 
 
 This will simply kill the process of the second terminal ("make app")
 
+☝🏽 [Return to table of contents](#table-of-contents)
+
 ## File format ##
 
 The file format must contain the following structure:
@@ -132,6 +136,8 @@ id,transaction,account,date
 211,+11,19,2027-11-18T15:33:12.421Z
 212,+12,19,2027-12-18T15:33:12.421Z
 ```
+
+☝🏽 [Return to table of contents](#table-of-contents)
 
 ### Assumptions ###
 
@@ -166,3 +172,5 @@ Here I will leave a list of what I consider to be missing or that has areas for 
 - Mount on cloud
 - Optimize communication to RPC instead of REST
 - Add monitoring
+
+☝🏽 [Return to table of contents](#table-of-contents)
