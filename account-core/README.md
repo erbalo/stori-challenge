@@ -46,6 +46,14 @@ Response status | Objetive
 `500` | Internal server error, some flow wasn't handled by the system
 `503` | Service unavailable, the dynamodb connection is corrupted
 
+Request payload
+
+```json
+{
+    "amount": 89.48
+}
+```
+
 ### Sequence diagram update balance
 
 ![Update account balance](update-account-balance.png)
