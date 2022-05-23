@@ -1,6 +1,6 @@
 # account-notification
 
-This service has the only task to update the balance and get it.
+This service has the only task to get the information to send an email with the statements.
 
 ## Table of contents
 
