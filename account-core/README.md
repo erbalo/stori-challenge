@@ -57,3 +57,5 @@ Request payload
 ### Sequence diagram update balance
 
 ![Update account balance](update-account-balance.png)
+
+☝🏽 [Return to main documentation](../README.md#table-of-contents)

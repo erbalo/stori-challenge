@@ -59,3 +59,5 @@ Request json
 ### Sequence diagram email account statements queue
 
 ![Email account statements queue](email-account-statements-queue.png)
+
+☝🏽 [Return to main documentation](../README.md#table-of-contents)

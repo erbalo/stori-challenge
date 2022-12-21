@@ -22,3 +22,6 @@ Request json
 ### Sequence diagram process transaction pipeline
 
 ![Process transaction pipeline](process-transaction-pipeline.png)
+
+
+☝🏽 [Return to main documentation](../README.md#table-of-contents)

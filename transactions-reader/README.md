@@ -20,3 +20,5 @@ When interacting with the application by selecting the option to send an email, 
 ### Sequence diagram send email from existing account
 
 ![Send email from existing account](send-email-from-existing-account.png)
+
+☝🏽 [Return to main documentation](../README.md#table-of-contents)

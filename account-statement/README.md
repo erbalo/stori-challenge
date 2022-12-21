@@ -74,3 +74,5 @@ Request json
 ### Sequence diagram process fanout transaction
 
 ![Process fanout transaction](process-fanout-transaction.png)
+
+☝🏽 [Return to main documentation](../README.md#table-of-contents)
