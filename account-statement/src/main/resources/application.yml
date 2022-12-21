@@ -1,0 +1,38 @@
+# Server
+server:
+  port: 8082
+  servlet:
+    context-path: /
+
+# Actuator
+management:
+  endpoints:
+    web:
+      base-path: /
+  info:
+    git:
+      mode: simple
+  endpoint:
+    health:
+      show-details: always
+
+# Spring
+spring:
+  main:
+    banner-mode: "off"
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      direct:
+        default-requeue-rejected: false
+      simple:
+        default-requeue-rejected: false
+
+# AWS
+aws:
+  region: us-east-1
+  dynamodb:
+    endpoint: http://localhost:8000

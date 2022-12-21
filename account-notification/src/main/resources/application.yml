@@ -1,0 +1,62 @@
+# Server
+server:
+  port: 8084
+  servlet:
+    context-path: /
+
+# Actuator
+management:
+  endpoints:
+    web:
+      base-path: /
+  info:
+    git:
+      mode: simple
+  endpoint:
+    health:
+      show-details: always
+
+# Spring
+spring:
+  main:
+    banner-mode: "off"
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      direct:
+        default-requeue-rejected: false
+      simple:
+        default-requeue-rejected: false
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: hiring.me.pls@gmail.com
+    password: tvzamwnpsrpttzpv
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: false
+    protocol: smtp
+    test-connection: false
+
+# Service management
+service:
+  account-core:
+    baseURL: http://localhost:8080
+    connection:
+      connect-timeout: 10000
+      read-timeout: 10000
+      conection-request-timeout: 10000
+  account-statement:
+    baseURL: http://localhost:8082
+    connection:
+      connect-timeout: 10000
+      read-timeout: 10000
+      conection-request-timeout: 10000

@@ -1,0 +1,110 @@
+version: "3.7"
+
+services:
+  stori-rabbitmq:
+    image: rabbitmq:3-management
+    container_name: stori-rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - "RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,warning},{channel,warning}]"
+    networks:
+      - rabbit-net
+      - apps-net
+  stori-dynamo:
+    image:  amazon/dynamodb-local
+    container_name: stori-dynamo
+    restart: always
+    volumes:
+      -  ./tmp/dynamodb-data:/home/dynamodblocal/data
+    ports:
+      - 8000:8000
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data/"
+    networks:
+      - database-net
+      - apps-net
+  account-notification:
+    image: account-notification
+    build: './account-notification'
+    container_name: account-notification
+    entrypoint: ./scripts/wait-for.sh stori-rabbitmq:5672 -t 60 -- java -jar /app/target/account-notification-boot.jar
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_RABBITMQ_HOST=stori-rabbitmq
+      - SPRING_MAIN_BANNER_MODE="off"
+      - SERVICE_ACCOUNTCORE_BASEURL=http://account-core:8080
+      - SERVICE_ACCOUNTSTATEMENT_BASEURL=http://account-statement:8080
+    depends_on:
+      - stori-rabbitmq
+    networks:
+      - rabbit-net
+      - apps-net
+  account-statement:
+    image: account-statement
+    build: './account-statement'
+    container_name: account-statement
+    entrypoint: ./scripts/wait-for.sh stori-rabbitmq:5672 -t 60 -- java -jar /app/target/account-statement-boot.jar
+    environment:
+      - AWS_ACCESS_KEY=test
+      - AWS_SECRET_KEY=test
+      - SERVER_PORT=8080
+      - SPRING_RABBITMQ_HOST=stori-rabbitmq
+      - SPRING_MAIN_BANNER-MODE=off
+      - AWS_DYNAMODB_ENDPOINT=http://stori-dynamo:8000
+    depends_on:
+      - stori-rabbitmq
+      - stori-dynamo
+    networks:
+      - rabbit-net
+      - apps-net
+      - database-net
+  account-core:
+    image: account-core
+    build: './account-core'
+    container_name: account-core
+    entrypoint: ./scripts/wait-for.sh stori-rabbitmq:5672 -t 60 -- java -jar /app/target/account-core-boot.jar
+    environment:
+      - AWS_ACCESS_KEY=test
+      - AWS_SECRET_KEY=test
+      - SERVER_PORT=8080
+      - SPRING_RABBITMQ_HOST=stori-rabbitmq
+      - SPRING_MAIN_BANNER-MODE=off
+      - AWS_DYNAMODB_ENDPOINT=http://stori-dynamo:8000
+    depends_on:
+      - stori-rabbitmq
+      - stori-dynamo
+    networks:
+      - rabbit-net
+      - database-net
+  transactions-core:
+    image: transactions-core
+    build: './transactions-core'
+    container_name: transactions-core
+    entrypoint: ./scripts/wait-for.sh stori-rabbitmq:5672 -t 60 -- java -jar /app/target/transactions-core-boot.jar
+    environment:
+      - AWS_ACCESS_KEY=test
+      - AWS_SECRET_KEY=test
+      - SERVER_PORT=8080
+      - SPRING_RABBITMQ_HOST=stori-rabbitmq
+      - SERVICE_ACCOUNTCORE_BASEURL=http://account-core:8080
+      - SPRING_MAIN_BANNER-MODE=off
+      - AWS_DYNAMODB_ENDPOINT=http://stori-dynamo:8000
+    depends_on:
+      - stori-rabbitmq
+      - stori-dynamo
+    networks:
+      - rabbit-net
+      - apps-net
+      - database-net
+
+networks:
+  rabbit-net:
+    name: rabbit-net
+    driver: bridge
+  apps-net:
+    name: apps-net
+    driver: bridge
+  database-net:
+    name: database-net
+    driver: bridge
