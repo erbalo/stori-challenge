@@ -12,7 +12,11 @@
 * [Technology stack](#technology-stack)
 * [Requirements](#requirements)
 * [Proposal architecture](#proposal-architecture)
-* [Transactions reader documentation](transactions-reader/README.md)
+    - [Transactions reader documentation](transactions-reader/README.md)
+    - [Transactions core documentation](transactions-core/README.md)
+    - [Account core documentation](account-core/README.md)
+    - [Account statement documentation](account-statement/README.md)
+    - [Account notification documentation](account-notification/README.md)
 * [How to run the application](#how-to-run-the-application)
 	- [Please read this section](#please-read-this-section)
     - [Demo video](#demo-video)
@@ -59,6 +63,14 @@ In the second terminal you must follow the following instructions:
 
 >__NOTE:__ It's important that you read the instructions for the second terminal (interactive menu), as you must enter the correct data for its correct use.
 
+
+### Demo video ###
+
+👇🏽 👇🏽 👇🏽 👇🏽 👇🏽 Clic on this image to see the video 🤘🏽 👇🏽 👇🏽 👇🏽 👇🏽 👇🏽
+
+[![Video](http://img.youtube.com/vi/R5HTn6vZZMA/0.jpg)]( http://www.youtube.com/watch?v=R5HTn6vZZMA "Stori challenge")
+
+☝🏽 [Return to table of contents](#table-of-contents)
 
 ### Please read this section ###
 👉🏽 👉🏽 👉🏽 👉🏽 👉🏽 👉🏽 👉🏽 __README pls!!!__ 👈🏽 👈🏽 👈🏽 👈🏽 👈🏽 👈🏽 👈🏽 
